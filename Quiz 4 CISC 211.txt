@@ -1,0 +1,40 @@
+section .data
+    ; No initialized data needed
+
+section .bss
+    ; No uninitialized data needed
+
+section .text
+    global _start ; Entry point for the program
+
+; Function to add three integers
+add_three_numbers:
+    ; Parameters: x in eax, y in ebx, z in ecx
+    ; Return value: result in eax
+
+    ; Add y (ebx) to x (eax)
+    add eax, ebx
+
+    ; Add z (ecx) to the result
+    add eax, ecx
+
+    ; Return from function (value in eax)
+    ret
+
+_start:
+    ; Initialize variables
+    mov eax, 5   ; x = 5
+    mov ebx, 10  ; y = 10
+    mov ecx, 15  ; z = 15
+
+    ; Call add_three_numbers function
+    call add_three_numbers
+
+    ; Result is now in eax
+    ; Here we just end the program and return the result as an exit code
+    mov ebx, eax ; Move result to ebx (exit code)
+    mov eax, 1   ; syscall number for sys_exit
+    int 0x80     ; Call kernel
+
+    ; Exit program
+    ; Exit code in ebx
